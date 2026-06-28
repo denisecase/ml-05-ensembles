@@ -3,78 +3,89 @@
 Use this page to record terms and ideas that help you understand
 professional analytics projects.
 
-This project is not only about EDA. It is also a chance to practice
-how professional projects are organized, reused, documented, and verified.
+This project covers ensemble methods: combining multiple models
+to produce better predictions than any single model alone.
 
 Pro-tip: Expand the VS Code **Outline** view (below the navigator on the right)
 to see this file organization at-a-glance.
 
-## Project Organization
+## Ensemble Methods
 
-### source code
+### ensemble method
 
-Source code are instructions that tell the computer what to do.
-In a Python project, source code lives in files ending with `.py`.
+An ensemble method combines the predictions of multiple models
+to produce a single, more reliable result.
+Ensembles often outperform any individual model because different models
+make different errors, and combining them averages those errors out.
 
-### module
+### bagging
 
-A module is one Python file that contains related code.
-A module may include constants, functions, imports, and a `main()` function.
-A project may have many modules working together.
-Being able to organize project code into modules, and reusable functions is a valuable skill.
+Bagging (bootstrap aggregating) trains many models independently
+on different random samples of the training data
+and combines their predictions by majority vote or averaging.
+Random forests use bagging.
 
-### package
+### boosting
 
-A package is a folder of related Python modules.
-A package usually includes an `__init__.py` file
-(it can be empty or just a docstring comment).
-The init file allows code in that folder to be
-imported and reused across a project.
+Boosting trains models sequentially, where each new model focuses on
+the examples the previous ones got wrong.
+The final prediction combines all models weighted by their accuracy.
+Gradient boosting uses this approach.
 
-### notebook
+### random forest
 
-A notebook is an interactive file used to combine
-code, output, notes, and narrative.
-Notebooks are useful for exploration, experiments,
-and explaining analysis step by step.
+A random forest is an ensemble of decision trees trained on random
+subsets of the data and random subsets of the features.
+Predictions are made by majority vote across all trees.
+Random forests are robust, accurate, and resistant to overfitting.
 
-## Reuse and Workflow
+### gradient boosting
 
-### reusable function
+Gradient boosting builds trees sequentially, each one correcting
+the residual errors of the previous.
+It often achieves high accuracy but requires careful tuning
+to avoid overfitting.
 
-A reusable function is a named block of code that performs
-one clear task and can be called more than once.
-Good functions make projects easier to read, test, debug, and modify.
+### feature importance
 
-### dependency
+Feature importance is a score that measures how much each input feature
+contributed to a model's predictions.
+Tree-based models compute this automatically.
+High importance means the feature was used frequently and effectively
+to split the data.
 
-A dependency is an external package or tool that a project
-needs in order to run.
-Dependencies are listed in `pyproject.toml`
-and the environment can be easily recreated using `uv`.
+## Tuning
 
-### workflow
+### hyperparameter
 
-A workflow is an ordered process for completing work.
-In a project, a workflow might include running code,
-checking results, making changes, testing again,
-and saving progress with Git.
+A hyperparameter is a setting that controls how a model is trained,
+set before training begins.
+Examples include the number of trees in a forest,
+the maximum depth of each tree, and the learning rate.
+Choosing good hyperparameters improves model performance.
 
-## Data and Outputs
+### n_estimators
 
-### raw data
+`n_estimators` is the hyperparameter that controls how many trees
+are built in a random forest or gradient boosting model.
+More trees generally improve accuracy up to a point,
+after which returns diminish and training slows.
 
-Raw data is the original input data used by the project.
-It should usually be kept unchanged so the analysis
-can be repeated from the original source.
+### max_depth
 
-### processed data
+`max_depth` controls how deep each decision tree is allowed to grow.
+Shallow trees underfit; very deep trees overfit.
+The right depth depends on the data.
 
-Processed data is data that has been
-cleaned, filtered, transformed, summarized, or prepared for later use.
+### cross-validation
 
-### artifact
+Cross-validation evaluates a model by splitting the data into multiple
+folds, training on some and testing on others, and averaging the results.
+It gives a more reliable estimate of performance than a single train-test split.
 
-An artifact is a file created by running a project.
-Examples include logs, charts, reports, exported data files,
-generated databases, and documentation output.
+### bias-variance tradeoff
+
+The bias-variance tradeoff describes the tension between two types of error.
+High bias means the model is too simple and misses patterns (underfitting).
+High variance means the model is too complex and fits noise (overfitting).
+Ensembles reduce variance while keeping bias low.
