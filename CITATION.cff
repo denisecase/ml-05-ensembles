@@ -27,12 +27,17 @@ license: MIT
 
 abstract: >
   Machine learning project.
-  Learn to characterize machine learning problems.
+  Learn to combine models using ensemble methods,
+  train random forests and gradient boosting models,
+  interpret feature importance, and tune key hyperparameters.
 
 keywords:
   - data analytics
   - notebooks
   - machine learning
+  - ensemble-methods
+  - random-forest
+  - gradient-boosting
   - computer-science-education
   - data-analytics-education
   - professional-python
@@ -44,6 +49,7 @@ keywords:
   - python
   - jupyter
   - pandas
+  - scikit-learn
   - git
   - github
   - open-source

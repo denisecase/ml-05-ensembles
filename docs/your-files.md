@@ -36,8 +36,8 @@ Verify that your command runs your code.
 For example:
 
 ```shell
-uv run python -m datafun.app_case
-uv run python -m datafun.app_stellar_analytics
+uv run python -m mlstudio.app_case
+uv run python -m mlstudio.app_stellar_analytics
 ```
 
 The exact package name and script name depend on the project.
