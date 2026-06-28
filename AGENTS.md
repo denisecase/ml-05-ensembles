@@ -1,4 +1,4 @@
-# ./AGENTS.md (ALL-COURSE-PY-SRC)
+# ./AGENTS.md (ALL-COURSE-PY-SRC-REPOS)
 
 ## WHY
 
@@ -38,7 +38,7 @@ When assisting with this repo:
 - Keep uv current.
 - Pin Python using uv.
 - Upgrade the lock file to assist with security.
-- Sync all dependencies (dev + docs) and upgrade.
+- Sync all dependencies (dev + docs) and upgrade to keep current.
 
 ```shell
 uv self update
@@ -58,7 +58,6 @@ uv run ruff format .
 uv run ruff check . --fix
 uv run python -m pyright
 uv run python -m pytest
-uv run python -m zensical build
 ```
 
 Build documentation:

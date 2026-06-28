@@ -146,7 +146,15 @@ def make_clean_view(df: pd.DataFrame) -> pd.DataFrame:
     LOG.info("Creating clean modeling view")
 
     selected_cols: list[str] = FEATURE_COLS + [TARGET_COL]
-    df_clean: pd.DataFrame = df[selected_cols].dropna().copy()
+
+    # Select only the columns we need.
+    df_selected: pd.DataFrame = df[selected_cols]  # type: ignore[assignment]
+
+    # Drop rows with any missing values.
+    df_no_missing: pd.DataFrame = df_selected.dropna()
+
+    # Assign a copy of the no-missing DataFrame to df_clean to avoid SettingWithCopyWarning.
+    df_clean: pd.DataFrame = df_no_missing.copy()
 
     LOG.info(f"Clean view: {df_clean.shape[0]} rows, {df_clean.shape[1]} columns")
     return df_clean

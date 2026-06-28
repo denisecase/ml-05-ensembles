@@ -19,12 +19,14 @@ dependencies = [
     "datafun-toolkit", # logging
     "ipykernel", # notebooks
     "ipython",   # notebooks
+    "nbconvert", # execute notebooks headlessly
+    "nbqa",      # run linters and formatters on notebooks
+    "numpy",     # numerical computing (sklearn/pandas dependency, explicit is cleaner)
     "pandas",    # tabular data manipulation
     "scikit-learn", # machine learning library
     "seaborn",   # statistical data visualization built on matplotlib
     "matplotlib" # plotting library for static, animated, and interactive visualizations in Python
 ]
-
 
 [project.optional-dependencies]
 dev = [
@@ -46,44 +48,36 @@ docs = [
 # SECTION 2: TOOL CONFIGURATION (Professional basics)
 # ============================================================
 
-# === PYRIGHT (TYPE CHECKING HELPS FIND COMMON ERRORS BEFORE THE CODE RUNS) ===
+# === PYRIGHT: COURSE REPOSITORIES ===
 
 [tool.pyright]
-# CUSTOM: Pyright configuration for static type checking.
-# This configuration is NOT enforced by CI or pre-commit.
-# It is provided for instructors and advanced users who
-# explicitly run pyright. Students are NOT required to use it.
-# WHY: Strict type checking helps catch bugs early.
+# WHY: "basic" catches bugs such as undefined names, bad imports, obvious
+# mismatches without being too demanding.
+typeCheckingMode = "basic"
 
-typeCheckingMode = "strict"
-pythonVersion = "3.14"
-include = ["src"]
+# WHY: Check package source and tests, nothing else.
+include = ["src", "tests"]
+
+# WHY: Resolve import package from src/ even before an editable install,
+# so a src layout doesn't produce a false "import could not be resolved".
 extraPaths = ["src"]
-exclude = [ "**/node_modules", "**/.*", ".venv","**/__pycache__","dist","build"]
 
-# Diagnostics (type-system focused)
-reportMissingImports = "warning"
-reportMissingTypeStubs = "none" # WHY: Avoid noise from missing stubs for third-party libraries.
-reportIncompatibleVariableOverride = "warning"
-reportIncompatibleMethodOverride = "warning"
-reportOptionalSubscript = "warning"
+# WHY: Keep known folders that are generated, cached, virtualenv,
+# build, and documentation site output out of type-check scope.
+# Same as Ruff exclude list.
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.*",
+    ".venv",
+    "build",
+    "dist",
+    "site",
+    "*.egg-info",
+]
 
-# Reduce noise
-reportPrivateUsage = "none"
-useLibraryCodeForTypes = false
-
-# Reduce noise associated with EDA libraries and exploratory data work
-reportUnknownMemberType = "none"
-reportUnknownArgumentType = "none"
-reportUnknownParameterType = "none"
-reportUnknownVariableType = "none"
-reportUnknownLambdaType = "none"
-
-# Environment resolution - all our projects use .venv for the virtual environment.
-# Only if you CANNOT USE .venv (e.g. due to IDE limitations) should you alter these.
-# for best results, follow the pro-analytics-02 instructions exactly.
-venvPath = "."
-venv = ".venv"
+# WHY: Match the course Python target so version-specific inference is correct.
+pythonVersion = "3.14"
 
 # === PYTEST (VERIFY LOGIC) ===
 
