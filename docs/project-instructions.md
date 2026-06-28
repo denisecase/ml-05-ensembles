@@ -26,11 +26,11 @@ Continue with the same guide to complete:
 
 ### Code & Data Files (As Used in This Project)
 
-- `src/` — modules **named with your alias**
-- `notebooks/` — notebooks **named with your alias**
-- `data/raw/` — source inputs
-- `data/processed/` — processed exports, if any
-- `artifacts/` — database files, logs, reports, or other outputs
+- `src/` - modules **named with your alias**
+- `notebooks/` - notebooks **named with your alias**
+- `data/raw/` - source inputs
+- `data/processed/` - processed exports, if any
+- `artifacts/` - database files, logs, reports, or other outputs
 
 ### README.md
 
